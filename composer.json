@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "ellissystems/laravel-payfast",
+    "description": "Laravel package for integrating with the PayFast payment gateway.",
     "keywords": [
-        ":vendor_name",
+        "EllisSystems",
         "laravel",
-        ":package_slug"
+        "laravel-payfast"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/ellissystems/laravel-payfast",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Timothy",
+            "email": "timothy@ellis-systems.tech",
             "role": "Developer"
         }
     ],
@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "EllisSystems\\LaravelPayFast\\": "src",
+            "EllisSystems\\LaravelPayFast\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "EllisSystems\\LaravelPayFast\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -56,10 +56,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "EllisSystems\\LaravelPayFast\\LaravelPayFastServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "LaravelPayFast": "EllisSystems\\LaravelPayFast\\Facades\\LaravelPayFast"
             }
         }
     },
