@@ -5,6 +5,7 @@ namespace EllisSystems\LaravelPayFast\Http\Middleware;
 use PayFast\PayFastApi;
 use PayFast\PayFastPayment;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Illuminate\Support\Facades\Log;
 
 use Closure;
 
@@ -13,9 +14,11 @@ class VerifyWebhookNotification
 {
     public function handle($request, Closure $next)
     {
+
         if (!$this->validateReffererOrigin($request)) {
             return false;
         }
+
         $payload = $request->all();
         $parameterString = '';
         foreach ($payload as $key => $val) {
@@ -33,6 +36,7 @@ class VerifyWebhookNotification
         $validPaymentData = $this->validatePaymentData($payload);
         $serverConfirmation = $this->getServerConfirmation($parameterString);
         if ($validSignature && $validPaymentData && $serverConfirmation) {
+            Log::debug('Baby we are cooking now');
             return $next($request);
         }
     }
@@ -55,8 +59,16 @@ class VerifyWebhookNotification
                 $validIps = array_merge($validIps, $ips);
             }
         }
+
         $validIps = array_unique($validIps);
+
         $reffererIpAddress = $request->ip();
+
+        if (config('payfast.testmode')) {
+            $localhost = array('127.0.0.1');
+            $validIps = array_merge($validIps, $localhost);
+        }
+
         if (in_array($reffererIpAddress, $validIps, true)) {
             return true;
         }
